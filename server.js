@@ -1,7 +1,7 @@
 const express = require('express')
 const inquirer = require('inquirer')
 const { Pool } = require('pg')
-const {  viewAllDepartments, viewAllRoles, viewAllEmployees, addDepartment, addRole, addEmployee, updateEmployeeRoll}
+const {  viewAllDepartments, viewAllRoles, viewAllEmployees, addDepartment, addRole, addEmployee, updateEmployeeRoll} = require('./text.js')
 
 const app = express();
 const PORT = process.env.PORT || 3001;
