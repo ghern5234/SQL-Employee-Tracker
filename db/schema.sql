@@ -16,3 +16,11 @@ CREATE TABLE roles (
   FOREIGN KEY (department) REFERENCES departments(id) ON DELETE SET NULL
 );
 
+CREATE TABLE employees (
+  id: SERIAL PRIMARY KEY,
+  first_name: VARCHAR(30) NOT NULL,
+  last_name: VARCHAR(30) NOT NULL,
+  roll_id: INTEGER NOT NULL,
+  manager_id: INTEGER,
+  
+)
