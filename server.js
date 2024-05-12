@@ -1,15 +1,13 @@
-const express = require('express')
 const inquirer = require('inquirer')
-const { Pool } = require('pg')
+const { Pool } = require('pg') // npm package that connects postgres
 const {  viewAllDepartments, viewAllRoles, viewAllEmployees, addDepartment, addRole, addEmployee, updateEmployeeRoll} = require('./text.js')
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+// Connects to our database
 const pool = new Pool({
-    user: '',
-    password: '',
+    user: 'postgres',
+    password: '1Harley!1',
     network: 'locatlhost',
-    database: '',
+    database: 'employees_db',
 });
 
 inquirer.prompt([
@@ -23,11 +21,14 @@ inquirer.prompt([
 ])
 .then((answers) => {
     if(answers.action == 'View all departments.') {
-        viewAllEmployees();
+        viewAllDepartments();
     }
     if(answers.action == "View all roles.") {
-
+       viewAllRoles();
     }
+    // if(answers.action == "View all roles.") {
+    //     viewAllRoles
+    //  }
 
 })
     
@@ -36,9 +37,6 @@ inquirer.prompt([
 pool.connect();
 
 
-app.listen(PORT, () => {
-    console.log('Success!')
-});
 
 
 

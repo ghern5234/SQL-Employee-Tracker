@@ -1,26 +1,29 @@
-DROP DATABASE IF EXISTS employees;
+DROP DATABASE IF EXISTS employees_db;
 CREATE DATABASE employees_db;
 
-\c employees;
+\c employees_db;
 
-CREATE TABLE departments (
+CREATE TABLE department (
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE roles (
+CREATE TABLE role (
   id SERIAL PRIMARY KEY,
   title VARCHAR(30) NOT NULL,
   salary DECIMAL NOT NULL,
-  department INTEGER,
-  FOREIGN KEY (department) REFERENCES departments(id) ON DELETE SET NULL
+  department_id INTEGER NOT NULL,
+  FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE SET NULL
+ -- (what table we are referencing from )(what table we are referencing to(which field))
 );
 
-CREATE TABLE employees (
-  id: SERIAL PRIMARY KEY,
-  first_name: VARCHAR(30) NOT NULL,
-  last_name: VARCHAR(30) NOT NULL,
-  roll_id: INTEGER NOT NULL,
-  manager_id: INTEGER,
+CREATE TABLE employee (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  role_id INTEGER NOT NULL,
+  FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE SET NULL,
+  manager_id INTEGER,
+  FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
   
 )
