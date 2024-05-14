@@ -15,20 +15,32 @@ inquirer.prompt([
         type: 'list',
         message: 'What would you like to do?',
         name: 'action',
-        choices: ['View all departments.', 'View all roles.', 'View all employees', 'Add a department.', 'Add a role.', 'Add an employee.', 'Update an employee role.'],
+        choices: [
+            {
+              name: 'View all departments.',
+              value: ''
+            }, 
+            {
+                'View all roles.'}, 'View all employees', 'Add a department.', 'Add a role.', 'Add an employee.', 'Update an employee role.'],
 
     }
 ])
 .then((answers) => {
+    
+
+
     if(answers.action == 'View all departments.') {
         viewAllDepartments();
     }
     if(answers.action == "View all roles.") {
        viewAllRoles();
     }
-    // if(answers.action == "View all roles.") {
-    //     viewAllRoles
-    //  }
+    if(answers.action == "View all roles.") {
+        viewAllRoles
+     }
+     if(answers.action == "View all roles.") {
+        viewAllRoles
+     }
 
 })
     
