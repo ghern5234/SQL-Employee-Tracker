@@ -1,5 +1,6 @@
 const { Pool } = require('pg')
 
+
 const pool = new Pool({
     user: 'postgres',
     password: '1Harley!1',
@@ -46,11 +47,13 @@ const addEmployee = (newEmployee) => {
     })
 };
 
-const updateEmployeeRoll = (data) => {
-    pool.query('SELECT * FROM FROM employees', function(err, {rows}) {
-        console.log(rows)
+const updateEmployeeRole = (employeeRoleUpdate) => {
+    const {employee_update, role_update } = employeeRoleUpdate
+    pool.query('DELETE FROM employee WHERE id = $1 AND INSERT $2', [employee_update, role_update], function(err, {rows}) {
+        console.table(rows)
     })
 };
+// const dish = dishData.map((dish) => dish.get({ plain: true }));
+//   res.render('all', dish);
 
-
-module.exports = { viewAllDepartments, viewAllRoles, viewAllEmployees, addDepartment, addRole, addEmployee, updateEmployeeRoll }
+module.exports = { viewAllDepartments, viewAllRoles, viewAllEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole }
