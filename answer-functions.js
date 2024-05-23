@@ -9,8 +9,9 @@ function newDepartment(){
             name: 'name',
         }
     ])
-    .then ((data) => {
-        addDepartment(data);
+    .then ((response) => {
+        let departmentName = response.name;
+        addDepartment(departmentName);
     })
 }
 
@@ -69,12 +70,12 @@ function employeeRoleUpdate(){
     inquirer.prompt ([
         {
             type: 'input',
-            message: 'Please enter the role id of the employee you wish to update.',
+            message: 'Please enter the employee id of the employee you wish to update.',
             name: 'employee_update',
         },
         {
             type: 'input',
-            message: 'Please enter their new role.',
+            message: 'Please enter the role id of their new role.',
             name: 'role_update',
         },
     ])
