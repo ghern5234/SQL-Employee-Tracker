@@ -21,6 +21,7 @@ const pool = new Pool({
 });
 
 // Prompts user with choices for what they wish to do
+function start() {
 inquirer
   .prompt([
     {
@@ -69,5 +70,12 @@ inquirer
         break;
     }
   });
+};
+
+function quit() {
+    console.log('Bye!')
+    process.exit()
+}
 
 pool.connect();
+start();

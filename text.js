@@ -41,29 +41,52 @@ const addDepartment = (departmentName) => {
     // The err parameter contains information about any errors that occurred during execution
     // The {rows} is an object destructuring syntax in js that extracts the rows property from the result object returned by the query.
     pool.query('INSERT INTO department (name) VALUES ($1)', [departmentName], function(err, {rows}) { 
-        console.table(rows)
+        
+        if (err) {
+            console.error(err)
+        } else {
+            viewAllDepartments();
+            start();
+        }
     })
 };
 
 //
 const addRole = (newRole) => {
     const { title, salary, department_id } = newRole;
-    pool.query('INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)', [title, salary, department_id], function(err, {rows}) {
-        console.table(rows)
+    pool.query('INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)', [title, salary, department_id], function(err, res) {
+        
+        if (err) {
+            console.error(err)
+        } else {
+            viewAllRoles();
+            // start();
+        }
     })
 };
 
 const addEmployee = (newEmployee) => {
     const { first_name, last_name, role_id, manager_id } = newEmployee;
     pool.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [first_name, last_name, role_id, manager_id], function(err, {rows}) {
-        console.table(rows)
+        
+        if (err) {
+            console.error(err)
+        } else {
+            viewAllEmployees();
+            start();
+        }
     })
 };
 
 const updateEmployeeRole = (employeeRoleUpdate) => {
     const {employee_update, role_update } = employeeRoleUpdate
     pool.query('UPDATE FROM employee SET id = $1 AND INSERT $2', [employee_update, role_update], function(err, {rows}) {
-        console.table(rows)
+        if (err) {
+            console.error(err)
+        } else {
+            viewAllEmployees();
+            start();
+        }
     })
 };
 
