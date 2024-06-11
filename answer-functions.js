@@ -1,22 +1,40 @@
-const inquirer = require('inquirer')
-const { addDepartment, addRole, addEmployee, updateEmployeeRole } = require('./text')
+const inquirer = require('inquirer');
+const { Pool } = require("pg");
 
-function newDepartment(){
-    inquirer.prompt ([
-        {
-            type: 'input',
-            message: 'What is the name of the new department?',
-            name: 'name',
-        }
-    ])
-    .then ((response) => {
-        let departmentName = response.name;
-        addDepartment(departmentName);
-    })
+const pool = new Pool({
+    user: 'postgres', // Database user
+    password: '1Harley!1', // Database password
+    network: 'localhost', // Network configuration 
+    database: 'employees_db', // Database name
+});
+
+async function newDepartment(){
+    
+        const answers = await inquirer.prompt ([
+            {
+                type: 'input',
+                message: 'What is the name of the new department?',
+                name: 'name',
+            }
+        ]);
+
+        return answers.name;
+
 }
 
-function newRole(){
-    inquirer.prompt ([
+async function newRole(){
+    const data = await pool.query('SELECT * FROM department')
+    console.log(data.rows)
+
+    const choices = data.rows.map(function (dept){
+        return { 
+            name: dept.name,
+            value: dept.id,
+         }
+    })
+
+    
+    const answers = await inquirer.prompt ([
         {
             type: 'input',
             message: 'What is the new role?',
@@ -28,17 +46,16 @@ function newRole(){
             name: 'salary',
         },
         {
-            type: 'input',
-            message: 'What is the departments new role id?',
-            name: 'department_id',
+            type: 'list',
+            message: 'Which department is it under?',
+            name: 'department_name',
+            choices: choices
         }
     ])
-    .then ((data) => {
-        addRole(data);
-});
-}
+    return {title: answers.title, salary: answers.salary, department_id: answers.department_name}
+};
 
-function newEmployee(){
+async function newEmployee(){
     inquirer.prompt ([
         {
             type: 'input',
