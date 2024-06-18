@@ -1,7 +1,7 @@
 const { Pool } = require("pg"); // npm package that connects postgres
-const {
-  start
-} = require("./text.js");
+// const {
+//   start
+// } = require("./index.js");
 
 
 // Connects to our database
@@ -14,12 +14,12 @@ const pool = new Pool({
 
 // Prompts user with choices for what they wish to do
 
-function quit() {
-    console.log('Bye!')
-    process.exit()
-}
+// function quit() {
+//     console.log('Bye!')
+//     process.exit()
+// }
 
 pool.connect();
-start();
 
+module.exports = pool;
 

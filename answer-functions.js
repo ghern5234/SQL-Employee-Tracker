@@ -1,12 +1,5 @@
 const inquirer = require('inquirer');
-const { Pool } = require("pg");
-
-const pool = new Pool({
-    user: 'postgres', // Database user
-    password: '1Harley!1', // Database password
-    network: 'localhost', // Network configuration 
-    database: 'employees_db', // Database name
-});
+const pool = require('./connection.js')
 
 async function newDepartment(){
     
@@ -24,7 +17,6 @@ async function newDepartment(){
 
 async function newRole(){
     const data = await pool.query('SELECT * FROM department')
-    console.log(data.rows)
 
     const choices = data.rows.map(function (dept){
         return { 
@@ -56,6 +48,25 @@ async function newRole(){
 };
 
 async function newEmployee(){
+
+    const data = await pool.query('SELECT * FROM employee')
+
+    const choices = data.rows.map(function (employee){
+        return { 
+            name: employee.first_name + employee.last_name,
+            value: employee.role_id,
+         }
+    })
+
+    const roleData = await pool.query('SELECT * FROM role')
+
+    const roleChoices = roleData.rows.map(function (role){
+        return { 
+            name: role.title,
+            value: role.id,
+         }
+    })
+
     inquirer.prompt ([
         {
             type: 'input',
@@ -68,32 +79,57 @@ async function newEmployee(){
             name: 'last_name',
         },
         {
-            type: 'input',
-            message: 'Please enter their new role id.',
+            type: 'list',
+            message: "Please select the new employee's role.",
             name: 'role_id',
+            choices: roleChoices
+
+
         },
         {
-            type: 'input',
-            message: 'Please enter the id of their manager.',
+            type: 'list',
+            message: "Please select the new employee's manager.",
             name: 'manager_id',
+            choices: choices
         }
     ])
     .then((data) => {
       addEmployee(data);
+    return data
     })
 }
 
-function employeeRoleUpdate(){
+async function employeeRoleUpdate(){
+    const data = await pool.query('SELECT * FROM employee')
+
+    const employeeChoices = data.rows.map(function (employee){
+        return { 
+            name: employee.first_name + employee.last_name,
+            value: employee.role_id,
+         }
+    })
+
+    const roleData = await pool.query('SELECT * FROM role')
+
+    const roleChoices = roleData.rows.map(function (role){
+        return { 
+            name: role.title,
+            value: role.id,
+         }
+    })
+
     inquirer.prompt ([
         {
-            type: 'input',
-            message: 'Please enter the employee id of the employee you wish to update.',
+            type: 'list',
+            message: 'Please select the employee you wish to update.',
             name: 'employee_update',
+            choices: employeeChoices
         },
         {
-            type: 'input',
-            message: 'Please enter the role id of their new role.',
+            type: 'list',
+            message: 'Please select their new role.',
             name: 'role_update',
+            choices: roleChoices
         },
     ])
     .then((data) => {

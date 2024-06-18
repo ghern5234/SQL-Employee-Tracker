@@ -3,6 +3,7 @@
 // Instead of opening and closing a new connection for each database operaton, the pool maintains a set of open connections that can be reused.
 const { Pool } = require('pg'); // Import the Pool class from the 'pg' package
 const inquirer = require("inquirer");
+const pool = require('./connection.js')
 const {
     newDepartment,
     newRole,
@@ -10,13 +11,6 @@ const {
     employeeRoleUpdate,
   } = require("./answer-functions.js");
 
-// Create a new instance of Pool for managing database connections
-const pool = new Pool({
-    user: 'postgres', // Database user
-    password: '1Harley!1', // Database password
-    network: 'localhost', // Network configuration 
-    database: 'employees_db', // Database name
-});
 
 function start() {
     inquirer
@@ -110,7 +104,6 @@ const addDepartment = () => {
                 console.error(err)
             } else {
                 viewAllDepartments();
-                setTimeout(start, 2000);
             }
         })
     })
@@ -127,7 +120,6 @@ const addRole = () => {
             console.error(err)
         } else {
             viewAllRoles();
-            setTimeout(start, 2000);
         }
     })
 })
@@ -136,19 +128,20 @@ const addRole = () => {
 // Function to add a new employee
 const addEmployee = (newEmployee) => {
     const { first_name, last_name, role_id, manager_id } = newEmployee;
+    newEmployee().then((employeeData) => { console.log(employeeData)})
     pool.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [first_name, last_name, role_id, manager_id], function(err, {rows}) {
         
         if (err) {
             console.error(err)
         } else {
-            viewAllEmployees();
-            setTimeout(start, 2000);
+            viewAllEmployees()
         }
     })
 };
 
 const updateEmployeeRole = (employeeRoleUpdate) => {
     const {employee_update, role_update } = employeeRoleUpdate
+  
     pool.query('UPDATE FROM employee SET id = $1 AND INSERT $2', [employee_update, role_update], function(err, {rows}) {
         if (err) {
             console.error(err)
@@ -159,7 +152,7 @@ const updateEmployeeRole = (employeeRoleUpdate) => {
     })
 };
 
+start();
 
 
-
-module.exports = { start, viewAllDepartments, viewAllRoles, viewAllEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole }
+module.exports = { viewAllDepartments, viewAllRoles, viewAllEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole }
