@@ -40,11 +40,11 @@ async function newRole(){
         {
             type: 'list',
             message: 'Which department is it under?',
-            name: 'department_name',
+            name: 'department_id',
             choices: choices
         }
     ])
-    return {title: answers.title, salary: answers.salary, department_id: answers.department_name}
+    return {title: answers.title, salary: answers.salary, department_id: answers.department_id}
 };
 
 async function newEmployee(){
@@ -67,7 +67,7 @@ async function newEmployee(){
          }
     })
 
-    inquirer.prompt ([
+    const answers = await inquirer.prompt ([
         {
             type: 'input',
             message: 'Please enter the new employee first name.',
@@ -93,11 +93,10 @@ async function newEmployee(){
             choices: choices
         }
     ])
-    .then((data) => {
-      addEmployee(data);
-    return data
-    })
-}
+    
+    return {first_name: answers.first_name, last_name: answers.last_name, role_id: answers.role_id, manager_id: answers.manager_id}
+    }
+
 
 async function employeeRoleUpdate(){
     const data = await pool.query('SELECT * FROM employee')
@@ -118,7 +117,7 @@ async function employeeRoleUpdate(){
          }
     })
 
-    inquirer.prompt ([
+    const answers = await inquirer.prompt ([
         {
             type: 'list',
             message: 'Please select the employee you wish to update.',
@@ -132,9 +131,8 @@ async function employeeRoleUpdate(){
             choices: roleChoices
         },
     ])
-    .then((data) => {
-        updateEmployeeRole(data)
-    })
+
+    return answers
 }
 
 module.exports = { newDepartment, newRole, newEmployee, employeeRoleUpdate }

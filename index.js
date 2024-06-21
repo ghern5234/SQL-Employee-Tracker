@@ -1,7 +1,6 @@
 // The 'Pool' class is a client library of the Node postgres package. 
 // It provides a connection pool for managing multiple connections to a PostrgesSQL database within a Node.js application.
 // Instead of opening and closing a new connection for each database operaton, the pool maintains a set of open connections that can be reused.
-const { Pool } = require('pg'); // Import the Pool class from the 'pg' package
 const inquirer = require("inquirer");
 const pool = require('./connection.js')
 const {
@@ -48,13 +47,13 @@ function start() {
             addRole();
             break;
           case "Add a new employee.":
-            newEmployee();
+            addEmployee();
             break;
           case "Add a new department.":
             addDepartment();
             break;
           case "Update an employee role.":
-            employeeRoleUpdate();
+            updateEmployeeRole();
             break;
           case "Quit.":
             break;
@@ -126,10 +125,9 @@ const addRole = () => {
 };
 
 // Function to add a new employee
-const addEmployee = (newEmployee) => {
-    const { first_name, last_name, role_id, manager_id } = newEmployee;
-    newEmployee().then((employeeData) => { console.log(employeeData)})
-    pool.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [first_name, last_name, role_id, manager_id], function(err, {rows}) {
+const addEmployee = () => {
+    newEmployee().then((newEmployeeData) => { 
+    pool.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [newEmployeeData.first_name, newEmployeeData.last_name, newEmployeeData.role_id, newEmployeeData.manager_id], function(err, res) {
         
         if (err) {
             console.error(err)
@@ -137,20 +135,23 @@ const addEmployee = (newEmployee) => {
             viewAllEmployees()
         }
     })
-};
+}
+    )};
 
-const updateEmployeeRole = (employeeRoleUpdate) => {
-    const {employee_update, role_update } = employeeRoleUpdate
-  
-    pool.query('UPDATE FROM employee SET id = $1 AND INSERT $2', [employee_update, role_update], function(err, {rows}) {
-        if (err) {
+const updateEmployeeRole = () => {
+
+    employeeRoleUpdate().then((employeeUpdate) =>{
+
+    pool.query('UPDATE employee SET role_id = $2 WHERE id = $1', [employeeUpdate.employee_update, employeeUpdate.role_update], function(err, res) {
+    
+      if (err) {
             console.error(err)
         } else {
             viewAllEmployees();
-            setTimeout(start, 2000);
         }
     })
-};
+}
+)};
 
 start();
 
