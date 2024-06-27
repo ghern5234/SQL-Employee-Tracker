@@ -30,7 +30,7 @@ This project aims to provide a simple and effective solution for managing a comp
 
 - Ensure you have Node.js and PostgresSQL installed on your machine. 
 
-- Install the dependencies running the `npm install` command in your terminal.
+- Install the dependencies by running the `npm i` command in your terminal.
 
 - Create a .env file in the root directory of the project and add your PostgresSQL connection details:
 `DB_NAME='your_database_name'`
@@ -39,9 +39,9 @@ This project aims to provide a simple and effective solution for managing a comp
 `DB_HOST='localhost'`
 `DB_PORT=3001`
 
-- Set Up the database by logging into postgres on the terminal and running `\i db/schema.sql;`.
+- Set Up the database by logging into postgres on the terminal and running `\i db/schema.sql;`. (If you wish to see example data, run the `node db/seeds.sql` command.) 
 
-- Start the application by using the command `node index.js`.
+- Exit out of postgres and start the application by using `node index.js`.
 
 - Once the server is running, you can use the command-line interface to interact with the employee tracker and perform various operations such as viewing departments, roles, employees, adding new departments, roles, employees, and updating employee roles.
 
@@ -65,7 +65,7 @@ This project aims to provide a simple and effective solution for managing a comp
 
 - Real-Time Data Management: Allows for real-time addition, viewing, and updating of data, providing immediate feedback and updates to the user.
 
-- For a visual demonstration, please refer to the [tutorial video](https://drive.google.com/file/d/1e7XU1uXE9vvgt1tazUplbHs4QB8HGP6_/view?usp=sharing).
+- For a visual demonstration, please refer to the [tutorial video](https://drive.google.com/file/d/1SBg8336SW4sdEkSXoqRVzBZ4hSvWqqNg/view?usp=sharing).
 
 
 

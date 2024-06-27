@@ -1,15 +1,15 @@
--- Set which databas we are working with
+-- Set which database we are working with
 \c employees_db;
 
 -- Add data to table
 INSERT INTO department (name)
-VALUES ('sales'),
-('advertising');
+VALUES ('Sales'),
+('Advertising');
 
 
 INSERT INTO role (title, salary, department_id)
-VALUES ('assistant manager', 40000, 1),
-('human resources', 30000, 2);
+VALUES ('Assistant Manager', 40000, 1),
+('Human Resources', 30000, 2);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('Ben', 'Walters', 1, NULL),
