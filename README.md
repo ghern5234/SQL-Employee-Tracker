@@ -1,184 +1,90 @@
-# 12 SQL: Employee Tracker
+# SQL: Employee Tracker
 
-## Your Task
 
-Developers frequently have to create interfaces that allow non-developers to easily view and interact with information stored in databases. These interfaces are called **content management systems (CMS)**. Your assignment this week is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and PostgreSQL.
+## Description
 
-Because this Challenge will require the use of the `Inquirer` package, ensure that you install and use Inquirer version 8.2.4. To do so, use the following command in your project folder: `npm i inquirer@8.2.4`.
+Welcome to SQL: Employee Tracker! This project is a command-line application to manage a company's employee database, utilizing Node.js, Inquirer, and PostgreSQL. The application serves as a Content Management System (CMS), enabling non-developers to easily view and interact with the stored information.
+This project aims to provide a simple and effective solution for managing a company's employee information, enhancing organizational capabilities and planning processes.
 
-Because this application won’t be deployed, you’ll also need to create a walkthrough video that demonstrates its functionality and all of the following acceptance criteria being met. You’ll need to submit a link to the video and add it to the README of your project.
 
-## User Story
+## Table of Contents
 
-```md
-AS A business owner
-I WANT to be able to view and manage the departments, roles, and employees in my company
-SO THAT I can organize and plan my business
-```
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Acceptance Criteria
 
-```md
-GIVEN a command-line application that accepts user input
-WHEN I start the application
-THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-WHEN I choose to view all departments
-THEN I am presented with a formatted table showing department names and department ids
-WHEN I choose to view all roles
-THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
-WHEN I choose to view all employees
-THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-WHEN I choose to add a department
-THEN I am prompted to enter the name of the department and that department is added to the database
-WHEN I choose to add a role
-THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-WHEN I choose to add an employee
-THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-WHEN I choose to update an employee role
-THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
-```
+## Features
 
-## Mock-Up
+- Command-Line Interface (CLI): This application will serves as a CLI tool, allowing users to interact with the database through various prompts and commands.
+Inquirer Integration:
+- Inquirer Integration: Uses the Inquirer package (version 8.2.4) to handle user input and navigate through the application options.
+- Database Management: Connect to and manage the employee database using PostgreSQL.
+- Persistent Data Storage: Uses PostgreSQL to store all data persistently, ensuring data integrity and availability.
 
-The following video shows an example of the application being used from the command line:
 
-[![A video thumbnail shows the command-line employee management application with a play button overlaying the view.](./Assets/12-sql-homework-video-thumbnail.png)](https://2u-20.wistia.com/medias/2lnle7xnpk)
+## Installation
 
-## Getting Started
+- Clone the repo to your device using `git clone` followed by the repo link.
 
-This Challenge will require a video submission. Refer to the [Fullstack Blog Video Submission Guide](https://coding-boot-camp.github.io/full-stack/computer-literacy/video-submission-guide) for additional guidance on creating a video.
+- Ensure you have Node.js and PostgresSQL installed on your machine. 
 
-You’ll need to use the [pg package](https://www.npmjs.com/package/pg) to connect to your PostgreSQL database and perform queries, and the [Inquirer package](https://www.npmjs.com/package/inquirer/v/8.2.4) to interact with the user via the command line.
+- Install the dependencies running the `npm install` command in your terminal.
 
-**Important**: You will be committing a file that contains your database credentials. Make sure that your PostgreSQL password is not used for any other personal accounts, because it will be visible on GitHub. In upcoming lessons, you will learn how to better secure this password, or you can start researching npm packages now that could help you.
+- Create a .env file in the root directory of the project and add your PostgresSQL connection details:
+`DB_NAME='your_database_name'`
+`DB_USER='your_postgresql_username'`
+`DB_PASSWORD='your_postgresql_password'`
+`DB_HOST='localhost'`
+`DB_PORT=3001`
 
-You might also want to make your queries asynchronous. You can make your queries asynchronous by using the [native async/await keywords](https://node-postgres.com/guides/async-express).
+- Set Up the database by logging into postgres on the terminal and running `\i db/schema.sql;`.
 
-Design the database schema as shown in the following image:
+- Start the application by using the command `node index.js`.
 
-![Database schema includes tables labeled “employee,” role,” and “department.”](./Assets/100-sql-challenge-ERD.png)
+- Once the server is running, you can use the command-line interface to interact with the employee tracker and perform various operations such as viewing departments, roles, employees, adding new departments, roles, employees, and updating employee roles.
 
-As the image illustrates, your schema should contain the following three tables:
 
-* `department`
 
-  * `id`: `SERIAL PRIMARY KEY`
+## Usage
 
-  * `name`: `VARCHAR(30) UNIQUE NOT NULL` to hold department name
+- View All Departments: Display a list of all departments with corresponding department IDs in a formatted table.
 
-* `role`
+- View All Roles: List all job roles with details including role ID, job title, associated department, and salary.
 
-  * `id`: `SERIAL PRIMARY KEY`
+- View All Employees: Show a comprehensive table of employee information, including employee IDs, first names, last names, job titles, departments, salaries, and their managers.
 
-  * `title`: `VARCHAR(30) UNIQUE NOT NULL` to hold role title
+- Add Department: Enter a new department name, and add the new department to the database.
 
-  * `salary`: `DECIMAL NOT NULL` to hold role salary
+- Add Role: Create a new job role by entering the role name, salary, and the department it belongs to, and add this role to the database.
 
-  * `department_id`: `INTEGER NOT NULL` to hold reference to department role belongs to
+- Add Employee: Enable the addition of a new employee by providing their first name, last name, role, and manager. The new employee is then added to the database.
 
-* `employee`
+- Update Employee Role: Facilitate updating an existing employee’s role by selecting the employee and their new role from a list, and update this information in the database.
 
-  * `id`: `SERIAL PRIMARY KEY`
+- Real-Time Data Management: Allows for real-time addition, viewing, and updating of data, providing immediate feedback and updates to the user.
 
-  * `first_name`: `VARCHAR(30) NOT NULL` to hold employee first name
+- For a visual demonstration, please refer to the [tutorial video](https://drive.google.com/file/d/1e7XU1uXE9vvgt1tazUplbHs4QB8HGP6_/view?usp=sharing).
 
-  * `last_name`: `VARCHAR(30) NOT NULL` to hold employee last name
 
-  * `role_id`: `INTEGER NOT NULL` to hold reference to employee role
 
-  * `manager_id`: `INTEGER` to hold reference to another employee that is the manager of the current employee (`null` if the employee has no manager)
 
-You might want to use a separate file that contains functions for performing specific SQL queries you'll need to use. A constructor function or class could be helpful for organizing these. You might also want to include a `seeds.sql` file to pre-populate your database, making the development of individual features much easier.
+## Contributing
 
-## Bonus
+Contributions are welcome! If you'd like to contribute to the project, please follow these steps:
+- Fork the repository.
+- Create a new branch for your changes.
+- Commit your changes with a descriptive message.
+- Submit a pull request.
 
-Try to add some additional functionality to your application, such as the ability to do the following:
 
-* Update employee managers.
+## License
 
-* View employees by manager.
+[MIT]((https://opensource.org/licenses/MIT)) 
 
-* View employees by department.
+Please refer to the [LICENSE](./LICENSE) file for more licensing information.
 
-* Delete departments, roles, and employees.
 
-* View the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department.
 
-## Grading Requirements
-
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
-
-This Challenge is graded based on the following criteria:
-
-### Deliverables: 10%
-
-* Your GitHub repository containing your application code.
-
-### Walkthrough Video: 27%
-
-* A walkthrough video that demonstrates the functionality of the employee tracker must be submitted, and a link to the video should be included in your README file.
-
-* The walkthrough video must show all of the technical acceptance criteria being met.
-
-* The walkthrough video must demonstrate how a user would invoke the application from the command line.
-
-* The walkthrough video must demonstrate a functional menu with the options outlined in the acceptance criteria.
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the preceding acceptance criteria plus the following:
-
-  * Uses the [Inquirer package](https://www.npmjs.com/package/inquirer/v/8.2.4).
-
-  * Uses the [pg package](https://www.npmjs.com/package/pg) to connect to a PostgreSQL database.
-
-* Follows the table schema outlined in the Challenge instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains a high-quality README with description and a link to a walkthrough video.
-
-### Application Quality 10%
-
-* The application user experience is intuitive and easy to navigate.
-
-### Bonus
-
-Fulfilling any of the following can add up to 20 points to your grade. Note that the highest grade you can achieve is still 100:
-
-* Application allows users to update employee managers (2 points).
-
-* Application allows users to view employees by manager (2 points).
-
-* Application allows users to view employees by department (2 points).
-
-* Application allows users to delete departments, roles, and employees (2 points for each).
-
-* Application allows users to view the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department (8 points).
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* A walkthrough video demonstrating the functionality of the application.
-
-* The URL of the GitHub repository, with a unique name and a README describing the project.
-
----
-© 2024 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
