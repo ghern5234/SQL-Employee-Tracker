@@ -18,8 +18,7 @@ This project aims to provide a simple and effective solution for managing a comp
 
 ## Features
 
-- Command-Line Interface (CLI): This application will serves as a CLI tool, allowing users to interact with the database through various prompts and commands.
-Inquirer Integration:
+- Command-Line Interface (CLI): Allows users to interact with the database through various prompts and commands.
 - Inquirer Integration: Uses the Inquirer package (version 8.2.4) to handle user input and navigate through the application options.
 - Database Management: Connect to and manage the employee database using PostgreSQL.
 - Persistent Data Storage: Uses PostgreSQL to store all data persistently, ensuring data integrity and availability.
