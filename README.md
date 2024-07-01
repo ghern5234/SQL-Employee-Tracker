@@ -65,8 +65,7 @@ This project aims to provide a simple and effective solution for managing a comp
 
 - Real-Time Data Management: Allows for real-time addition, viewing, and updating of data, providing immediate feedback and updates to the user.
 
-- For a visual demonstration, please refer to the [tutorial video](https://drive.google.com/file/d/1SBg8336SW4sdEkSXoqRVzBZ4hSvWqqNg/view?usp=sharing).
-
+- For a visual demonstration, please refer to the [tutorial video](https://drive.google.com/file/d/1SBg8336SW4sdEkSXoqRVzBZ4hSvWqqNg/view?usp=drive_link).
 
 
 
